@@ -1,0 +1,34 @@
+# Author: VLEAD
+# -------------
+# $(call install_repo,wd,repo,ws)
+# ------------------------------
+define install_repo
+    if [ -d $(3) ]; then             \
+        echo "catalog already present";        \
+		(cd $(3); git pull)          \
+    else                                       \
+        (cd $(1); git clone $(2)) \
+    fi
+endef
+
+# $(call symlink,wd,dest)
+define symlink
+	(cd $(1); ln -s $(2))
+endef
+
+# $(call wget_untar_gz,wd,url)
+define wget_untar_gz
+	(cd $(1); wget $(2); v=`echo $(2) | rev | cut -d/ -f1 | rev`; tar xzvf $v)
+
+# $(call install_targz,wd,url)
+define install_tar_gz
+	v=`echo $(2) | rev | cut -d/ -f1 | rev | cut -d. -f1`
+    if [ -d $v ]; then             \
+        echo "$v already present";        \
+    else                                       \
+        $(call wget_untar_gz,wd,url) \
+	fi
+endef
+
+
+

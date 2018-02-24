@@ -20,7 +20,7 @@ endef
 define wget_untar_gz
 	(cd $(1); wget $(2); v=`echo $(2) | rev | cut -d/ -f1 | rev`; tar xzvf $v)
 
-# $(call install_targz,wd,url)
+# $(call install_tar_gz,wd,url)
 define install_tar_gz
 	v=`echo $(2) | rev | cut -d/ -f1 | rev | cut -d. -f1`
     if [ -d $v ]; then             \

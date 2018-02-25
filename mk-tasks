@@ -1,13 +1,13 @@
 # Author: VLEAD
 # -------------
-# $(call install_repo,wd,repo,ws)
+# $(call install_repo,wd,repo,ws,options)
 # ------------------------------
 define install_repo
     if [ -d $(3) ]; then             \
         echo "catalog already present";        \
 		(cd $(3); git pull)          \
     else                                       \
-        (cd $(1); git clone $(2)) \
+        (cd $(1); git clone $(4) $(2) $(3)) \
     fi
 endef
 
@@ -19,6 +19,7 @@ endef
 # $(call wget_untar_gz,wd,url)
 define wget_untar_gz
 	(cd $(1); wget $(2); v=`echo $(2) | rev | cut -d/ -f1 | rev`; tar xzvf $v)
+endef
 
 # $(call install_tar_gz,wd,url)
 define install_tar_gz
